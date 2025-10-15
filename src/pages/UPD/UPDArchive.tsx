@@ -192,22 +192,22 @@ export const UPDArchive: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Номер УПД
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Дата УПД
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Контрагент
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Сумма доходов
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Сумма расходов
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Действия
                   </th>
                 </tr>
@@ -215,90 +215,94 @@ export const UPDArchive: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {updDocuments.map((upd) => (
                   <tr key={upd.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-2 max-w-xs">
                       {editingNumberId === upd.id ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <input
                             type="text"
                             value={editedNumber}
                             onChange={(e) => setEditedNumber(e.target.value)}
-                            className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 w-32"
+                            className="text-xs font-medium text-gray-900 border border-gray-300 rounded px-1.5 py-0.5 w-full"
                             autoFocus
                           />
                           <button
                             onClick={() => handleSaveNumber(upd.id)}
-                            className="text-green-600 hover:text-green-800 text-xs"
+                            className="text-green-600 hover:text-green-800 text-xs whitespace-nowrap"
                           >
-                            Сохранить
+                            Сохр
                           </button>
                           <button
                             onClick={handleCancelEdit}
-                            className="text-gray-600 hover:text-gray-800 text-xs"
+                            className="text-gray-600 hover:text-gray-800 text-xs whitespace-nowrap"
                           >
-                            Отмена
+                            Отм
                           </button>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2">
-                          <div className="text-sm font-medium text-gray-900">
+                        <div className="flex items-start gap-1">
+                          <div className="text-xs font-medium text-gray-900 break-words flex-1">
                             {upd.document_number}
                           </div>
-                          <button
-                            onClick={() => handleEditNumber(upd)}
-                            className="text-gray-400 hover:text-indigo-600"
-                            title="Редактировать номер УПД"
-                          >
-                            <Pencil className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleOpenSpecialDocModal(upd.id)}
-                            className="text-gray-400 hover:text-indigo-600"
-                            title="Справочник Документов спец"
-                          >
-                            <FileSpreadsheet className="w-4 h-4" />
-                          </button>
+                          <div className="flex gap-1 flex-shrink-0">
+                            <button
+                              onClick={() => handleEditNumber(upd)}
+                              className="text-gray-400 hover:text-indigo-600"
+                              title="Редактировать номер УПД"
+                            >
+                              <Pencil className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => handleOpenSpecialDocModal(upd.id)}
+                              className="text-gray-400 hover:text-indigo-600"
+                              title="Справочник Документов спец"
+                            >
+                              <FileSpreadsheet className="w-3 h-3" />
+                            </button>
+                          </div>
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      <div className="text-xs text-gray-900">
                         {formatDate(upd.document_date)}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{upd.counterparties.name}</div>
+                    <td className="px-3 py-2">
+                      <div className="text-xs text-gray-900">{upd.counterparties.name}</div>
                       {upd.counterparties.inn && (
                         <div className="text-xs text-gray-500">ИНН: {upd.counterparties.inn}</div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-green-600">
+                    <td className="px-3 py-2 whitespace-nowrap text-right">
+                      <div className="text-xs font-medium text-green-600">
                         {formatCurrency(upd.total_income || 0)}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-red-600">
+                    <td className="px-3 py-2 whitespace-nowrap text-right">
+                      <div className="text-xs font-medium text-red-600">
                         {formatCurrency(upd.total_expense || 0)}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-3 py-2 text-right">
+                      <div className="flex items-center justify-end gap-1">
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => handleDisbandClick(upd)}
                           disabled={disbandingId === upd.id}
                           title="Расформировать"
+                          className="text-xs px-2 py-1"
                         >
-                          <XCircle className="w-4 h-4 mr-2" />
-                          Расформировать УПД
+                          <XCircle className="w-3 h-3 mr-1" />
+                          Расформировать
                         </Button>
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => handleView(upd.id)}
+                          className="text-xs px-2 py-1"
                         >
-                          <Edit className="w-4 h-4 mr-2" />
+                          <Edit className="w-3 h-3 mr-1" />
                           Просмотр
                         </Button>
                       </div>
